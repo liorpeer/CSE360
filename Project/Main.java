@@ -7,6 +7,7 @@
 * look super pretty but it's something.
 *
 * To Do:
+*    - add JUnit tests
 *    - make everything look prettier
 *    - add functionality
 *         ^ browse/select file buttons
