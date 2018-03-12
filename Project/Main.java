@@ -87,7 +87,73 @@ public class Main {
                JLabel formatData = new JLabel();
 
                     //Set Text
-                    formatData.setText(String.format("<html><table> <tr><td align=\"right\">%s</td><td>%d</td></tr> <tr><td align=\"right\">%s</td><td>%d</td></tr> <tr><td align=\"right\">%s</td><td>%d</td></tr> <tr><td align=\"right\">%s</td><td>%.2f</td></tr> <tr><td align=\"right\">%s</td><td>%.2f</td></tr> </table></html>", "Words Processed:", wordsProcessed, "Lines:", lines, "Blank Lines Removed:", blanksRemoved, "Average Words Per Line:", averageWPL, "Average Line Length:", averageLL));
+                  /**************************************************
+                   * To get the JLabel to look how I wanted, stack
+                   * overflow said that i had to use HTML so I ended
+                   * up making a table in HTML so that each part was
+                   * on its own line and the colons would line up.
+                   *
+                   * Here's the HTML code in a more readable format:
+                   *
+                   * <html>
+                   *     <table>
+                   *         //Row 1
+                   *         <tr>
+                   *             //column 1
+                   *             <td align="right">
+                   *                 Words Processed:
+                   *             </td>
+                   *             
+                   *             //column 2
+                   *             <td>
+                   *                 &emsp;###
+                   *             </td>
+                   *         </tr>
+                   *
+                   *         //Row 2
+                   *         <tr>
+                   *             <td align="right">
+                   *                 Lines:
+                   *             </td>
+                   *             <td>
+                   *                 &emsp;###
+                   *             </td>
+                   *         </tr>
+                   *
+                   *         //Row 3
+                   *         <tr>
+                   *             <td align="right">
+                   *                 Blank Lines Removed:
+                   *             </td>
+                   *             <td>
+                   *                 &emsp;###
+                   *             </td>
+                   *         </tr>
+                   *
+                   *         //Row 4
+                   *         <tr>
+                   *             <td align="right">
+                   *                 Average Words Per Line:
+                   *             </td>
+                   *             <td>
+                   *                 &emsp;###.##
+                   *             </td>
+                   *         </tr>
+                   *
+                   *         //Row 5
+                   *         <tr>
+                   *             <td align="right">
+                   *                 Average Line Length:
+                   *             </td>
+                   *             <td>
+                   *                 &emsp;###.##
+                   *             </td>
+                   *         </tr>
+                   *     </table>
+                   * </html>
+                   *
+                   ************************************************/
+                  formatData.setText(String.format("<html><table> <tr><td align=\"right\">%s</td><td>&emsp;%d</td></tr> <tr><td align=\"right\">%s</td><td>&emsp;%d</td></tr> <tr><td align=\"right\">%s</td><td>&emsp;%d</td></tr> <tr><td align=\"right\">%s</td><td>&emsp;%.2f</td></tr> <tr><td align=\"right\">%s</td><td>&emsp;%.2f</td></tr> </table></html>", "Words Processed:", wordsProcessed, "Lines:", lines, "Blank Lines Removed:", blanksRemoved, "Average Words Per Line:", averageWPL, "Average Line Length:", averageLL));
 
                     //Set fonts
                     inputLabel.setFont(font);
