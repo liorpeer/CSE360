@@ -22,6 +22,7 @@ public class TextFileAnalyzer {
 		this.avgWordPerLine = 0;
 		this.avgCharLine = 0;
 		AnalyzeFile();
+		writeOutputFile();
 	}
 	
 	private void AnalyzeFile() throws IOException {
@@ -41,7 +42,8 @@ public class TextFileAnalyzer {
 		
 		avgWordPerLine = wordNumber / lineNumber;
 		avgCharLine = charPerLine;
-		br.close();	
+		br.close();
+		
 	}
 	
 	private int AnalyzeWordArray(String[] wordArray) {
@@ -51,6 +53,56 @@ public class TextFileAnalyzer {
 		}
 		return sumOfChar;	
 	}
-}
 	
+	private void writeOutputFile() throws IOException {
+	    Scanner sc = new Scanner(new File(pathToTextFile));
+	    String output = "";
+	    String curLine = "";
+	    String s;
+	    while(sc.hasNext()){
+	         s = sc.next();
+	         if(curLine.length() + s.length() > 80) {
+	        	 	output += curLine + '\n';
+	        	 	curLine = "";
+	         }
+	         else {
+	        	 	curLine += " " + s;
+	         }
+	    }
+	    
+	    output += curLine + '\n';
+	    PrintWriter out = new PrintWriter(pathToOutput);
+	    out.println(output);
+	    out.close();
+	    sc.close();
+
+	}
+	
+	public int getLineNumber() {
+		return lineNumber;
+	}
+
+	public int getBlankLine() {
+		return blankLine;
+	}
+
+	public int getWordNumber() {
+		return wordNumber;
+	}
+
+	public double getAvgWordPerLine() {
+		return avgWordPerLine;
+	}
+
+	public double getAvgCharLine() {
+		return avgCharLine;
+	}
+	
+
+	public static void main(String[] args) throws Exception{
+		TextFileAnalyzer tf = new TextFileAnalyzer("try.txt", "out.txt");
+		System.out.println("\nWord Number = "+tf.wordNumber + "\nLine number = "+tf.getLineNumber()+"\nBlank number = "+tf.blankLine
+				+ "\nAverage Word Per Line = "+tf.avgWordPerLine + "\nAverage Line Length = "+tf.avgCharLine);
+	}	
+}
 
