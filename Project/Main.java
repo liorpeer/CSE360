@@ -34,13 +34,13 @@ public class Main {
     static double averageWPL;
     static double averageLL;
     static TextFileAnalyzer textFileAnalyzer;
-
+	static String input, output;
     //Layouts
     static FlowLayout flow = new FlowLayout(FlowLayout.CENTER, 50, 20);
 
     //Text Field
-    static JTextField inputFile = new JTextField("C:\\Users\\luke_\\Desktop\\try.txt", 20);
-    static JTextField outputFile = new JTextField("C:\\Users\\luke_\\Desktop\\out1.txt", 20);
+    static JTextField inputFile = new JTextField("C:\\Users\\Main\\Documents\\GitHub\\CSE360\\try.txt", 20);
+    static JTextField outputFile = new JTextField("C:\\Users\\Main\\Documents\\GitHub\\CSE360\\out.txt", 20);
 
     //Labels
     static JLabel formatData = new JLabel();
@@ -67,16 +67,77 @@ public class Main {
     //Button Handler Class
     private static class ButtonHandler implements ActionListener {
         public void actionPerformed(ActionEvent e){
-            String buttonPressed = e.getActionCommand();
+            String buttonPressed = "Hi"; //e.getActionCommand();
+			Object source = e.getSource();
 
+			if(source == inputBrowseButton)
+			{
+					JFileChooser chooser = new JFileChooser();
+					try
+					{
+						chooser.setCurrentDirectory( new java.io.File("."));
+						if(chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
+
+							input = chooser.getSelectedFile().getAbsolutePath();
+							//!System.out.println(input);
+					}
+					catch(Exception a)
+					{}
+
+			}
+			else if(source == outputBrowseButton)
+			{
+					JFileChooser chooser = new JFileChooser();
+					try
+					{
+						chooser.setCurrentDirectory( new java.io.File("."));
+						if(chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
+
+							output = chooser.getSelectedFile().getAbsolutePath();
+							System.out.println(output);
+					}
+					catch(Exception a)
+					{}
+			}
+			else if(source == formatButton)
+			{
+				try {
+					if(leftJustifyButton.isSelected()) {
+						textFileAnalyzer = new TextFileAnalyzer(input, output, true);
+					}
+					else{
+						textFileAnalyzer = new TextFileAnalyzer(input, output, false);
+					}
+				} catch (IOException e1) {
+					//add a dialog box
+				}
+
+				wordsProcessed = textFileAnalyzer.getWordNumber();
+				lines = textFileAnalyzer.getLineNumber();
+				blanksRemoved = textFileAnalyzer.getBlankLine();
+				averageWPL = textFileAnalyzer.getAvgWordPerLine();
+				averageLL = textFileAnalyzer.getAvgCharLine();
+
+			}
+			else if(source == resetButton)
+			{
+				wordsProcessed = 0;
+				lines = 0;
+				blanksRemoved = 0;
+				averageWPL = 0;
+				averageLL = 0;
+
+			}
+
+/*
             switch (buttonPressed) {
                 case "Format my File": {
                     try {
                         if(leftJustifyButton.isSelected()) {
-                            textFileAnalyzer = new TextFileAnalyzer(inputFile.getText(), outputFile.getText(), true);
+                            textFileAnalyzer = new TextFileAnalyzer(input, output, true);
                         }
                         else{
-                            textFileAnalyzer = new TextFileAnalyzer(inputFile.getText(), outputFile.getText(), false);
+                            textFileAnalyzer = new TextFileAnalyzer(input, output, false);
                         }
                     } catch (IOException e1) {
                         //add a dialog box
@@ -104,7 +165,23 @@ public class Main {
                 case "Right Justified": {
                     break;
                 }
-            }
+				case "Browse" : {
+					JFileChooser chooser = new JFileChooser();
+					try
+					{
+						chooser.setCurrentDirectory( new java.io.File("."));
+						if(chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
+
+							input = chooser.getSelectedFile().getAbsolutePath();
+							System.out.println(input);
+					}
+					catch(Exception a)
+					{}
+					break;
+				}
+
+
+            }*/
 
             formatData.setText(String.format("<html><table> <tr><td align=\"right\">%s</td><td>&emsp;%d</td></tr> <tr><td align=\"right\">%s</td><td>&emsp;%d</td></tr> <tr><td align=\"right\">%s</td><td>&emsp;%d</td></tr> <tr><td align=\"right\">%s</td><td>&emsp;%.2f</td></tr> <tr><td align=\"right\">%s</td><td>&emsp;%.2f</td></tr> </table></html>", "Words Processed:", wordsProcessed, "Lines:", lines, "Blank Lines Removed:", blanksRemoved, "Average Words Per Line:", averageWPL, "Average Line Length:", averageLL));
         }
