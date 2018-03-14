@@ -25,39 +25,54 @@ public	class	TextFileAnalyzer	{
     }
     // upload file and analyze it
     private	void AnalyzeFile() throws IOException {
-        int	charPerLine	= 0;
-        File file = new	File(this.pathToTextFile);
-        BufferedReader br =	new	BufferedReader(new	FileReader(file));
-        String line	= null;
+        int	totalChar	=	0;
+        File	file	=	new	File(this.pathToTextFile);
+        BufferedReader	br	=	new	BufferedReader(new	FileReader(file));
+        String	line	=	null;
 
-        while((line = br.readLine()) !=	null) {
-            lineNumber++;
+        while	((line	=	br.readLine())	!=	null)	{
+            lineNumber	++;
+			char []letters = line.toCharArray();
+
 
             if(line.trim().isEmpty())	{
-                blankLine ++;
+                blankLine++;
             }
+			else
+			{
 
-            String [] wordArray	= line.split("\\s");
-            wordNumber += wordArray.length;
-            charPerLine	+= AnalyzeWordArray(wordArray);
+				for(int i = 0; i < line.length();i++)
+				{
+						for(i = 0; i < line.length();i++)
+						{
+
+							//Checks if there's a char and a space in that order, if the last char at the last index is not a space then it counts as a word as well
+							//32 represents a space
+							if(i > 0)
+								if(letters[i] == 32 && letters[i-1] != 32)
+									wordNumber++;
+									else if(i == line.length() - 1 && letters[i] != 32)
+											wordNumber++;
+							totalChar++;
+						}
+           		}
+			}
+
+
         }
-
-        wordNumber = wordNumber - blankLine;
-        avgWordPerLine = wordNumber	/ lineNumber;
-        avgCharLine	= charPerLine / lineNumber;
-
+        avgWordPerLine	=	wordNumber	/	lineNumber;
+        avgCharLine	=	totalChar / lineNumber;
         br.close();
     }
-    // calculate char number in text file
-    private	int	AnalyzeWordArray(String[] wordArray) {
-        int	sumOfChar =	0;
-
-        for(int	i =	0; i < wordArray.length; i++){
-            sumOfChar += wordArray[i].length();
+/*		No longer needed---------------------------------------------
+    private	int	AnalyzeWordArray(String[]	wordArray)	{
+        int	sumOfChar	=	0;
+        for(int	i	=	0	;	i	<	wordArray.length	;	i++)	{
+            sumOfChar	+=	wordArray[i].length();
         }
-
         return	sumOfChar;
     }
+*/
     //create output file
     private	void writeOutputFile() throws IOException {
         Scanner	sc	=	new	Scanner(new	File(pathToTextFile));
@@ -85,7 +100,7 @@ public	class	TextFileAnalyzer	{
                 output	+=	" "	+ s;
             }
         }
-        
+
         //Print final line
         if(leftJustify){
             out.print(String.format("%-80s", output.trim()));
