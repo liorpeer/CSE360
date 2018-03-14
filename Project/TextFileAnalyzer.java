@@ -6,8 +6,8 @@ import	java.io.PrintWriter;
 import	java.util.Scanner;
 
 public	class	TextFileAnalyzer	{
-    private	String	pathToTextFile,	pathToOutput;
-    private	int	lineNumber	,	blankLine,	wordNumber;
+    private	String	pathToTextFile, pathToOutput;
+    private	int	lineNumber, blankLine, wordNumber;
     private	double	avgWordPerLine,	avgCharLine;
     private boolean leftJustify;
 
@@ -23,7 +23,7 @@ public	class	TextFileAnalyzer	{
         AnalyzeFile();
         writeOutputFile();
     }
-
+    // upload file and analyze it
     private	void AnalyzeFile() throws IOException {
         int	charPerLine	= 0;
         File file = new	File(this.pathToTextFile);
@@ -34,7 +34,7 @@ public	class	TextFileAnalyzer	{
             lineNumber++;
 
             if(line.trim().isEmpty())	{
-                blankLine	++;
+                blankLine ++;
             }
 
             String [] wordArray	= line.split("\\s");
@@ -48,7 +48,7 @@ public	class	TextFileAnalyzer	{
 
         br.close();
     }
-
+    // calculate char number in text file
     private	int	AnalyzeWordArray(String[] wordArray) {
         int	sumOfChar =	0;
 
@@ -58,7 +58,7 @@ public	class	TextFileAnalyzer	{
 
         return	sumOfChar;
     }
-
+    //create output file
     private	void writeOutputFile() throws IOException {
         Scanner	sc	=	new	Scanner(new	File(pathToTextFile));
         PrintWriter	out	= new PrintWriter(pathToOutput);
@@ -69,7 +69,7 @@ public	class	TextFileAnalyzer	{
         while(sc.hasNext()){
             s = sc.next();
 
-            if(output.length()	+ s.length() > 80){
+            if(output.length() + s.length() > 80){
 
 
                 if(leftJustify){
@@ -85,7 +85,7 @@ public	class	TextFileAnalyzer	{
                 output	+=	" "	+ s;
             }
         }
-
+        
         //Print final line
         if(leftJustify){
             out.print(String.format("%-80s", output.trim()));
