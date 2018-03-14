@@ -39,8 +39,8 @@ public class Main {
     static FlowLayout flow = new FlowLayout(FlowLayout.CENTER, 50, 20);
 
     //Text Field
-    static JTextField inputFile = new JTextField("C:\\Users\\Main\\Documents\\GitHub\\CSE360\\try.txt", 20);
-    static JTextField outputFile = new JTextField("C:\\Users\\Main\\Documents\\GitHub\\CSE360\\out.txt", 20);
+    static JTextField inputFile = new JTextField("C:\\Users\\Main\\Documents\\GitHub\\CSE360\\try.txt", 13);
+    static JTextField outputFile = new JTextField("C:\\Users\\Main\\Documents\\GitHub\\CSE360\\out.txt", 13);
 
     //Labels
     static JLabel formatData = new JLabel();
