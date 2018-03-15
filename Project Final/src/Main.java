@@ -1,25 +1,28 @@
-/**************************************
- * Luke Mains
- * 27 February 2018
- * 360 Project
- *
- * This is just a rough draft of the gui part. Nothing works and it doesn't
- * look super pretty but it's something.
- *
- * To Do:
- *    - add JUnit tests
- *    - make everything look prettier
- *    - add functionality
- *         ^ browse/select file buttons
- *         ^ add red border to justify Buttons
- *         ^ format Stuff
- *              ~ count words
- *              ~ count number of Lines
- *              ~ count number of blank lines Removed
- *              ~ calculate average words per line
- *              ~ calculate average line Length (characters per line?)
- *         ^ download output file
- ***************************************/
+/************************************************
+ * Group:
+ * 	Luke Mains
+ * 	Karissa Kauspedas
+ * 	Tin Pham
+ * 	Lior Peer
+ * 
+ * Date 3-14-2018
+ * 
+ * Description:
+ * 
+ * This program is a text file formater. It 
+ * takes an input file and converts it to an
+ * ouptut file (both .txt files). The output 
+ * is limited to 80 characters per line while
+ * still keeping full words intact. It also 
+ * removes all blank lines. Lastly the program
+ * analyzes the input file. The main metrics 
+ * are:
+ * 	- Words Processed
+ *  - Number of lines
+ *  - Number of blank lines removed
+ *  - Average words per line
+ *  - Average line length (characters per line)
+ **************************************************/
 
 import java.awt.*;
 import java.awt.event.*;
@@ -131,58 +134,6 @@ public class Main {
 				averageLL = 0;
 
 			}
-            
-            /*String buttonPressed = e.getActionCommand();
-            switch (buttonPressed) {
-                case "Format my File": {
-                    try {
-                        if(leftJustifyButton.isSelected()) {
-                            textFileAnalyzer = new TextFileAnalyzer(input, output, true);
-                        }
-                        else{
-                            textFileAnalyzer = new TextFileAnalyzer(input, output, false);
-                        }
-                    } catch (IOException e1) {
-                        //add a dialog box
-                    }
-
-                    wordsProcessed = textFileAnalyzer.getWordNumber();
-                    lines = textFileAnalyzer.getLineNumber();
-                    blanksRemoved = textFileAnalyzer.getBlankLine();
-                    averageWPL = textFileAnalyzer.getAvgWordPerLine();
-                    averageLL = textFileAnalyzer.getAvgCharLine();
-
-                    break;
-                }
-                case "Reset File": {
-                    wordsProcessed = 0;
-                    lines = 0;
-                    blanksRemoved = 0;
-                    averageWPL = 0;
-                    averageLL = 0;
-                    break;
-                }
-                case "Left Justtified (Default)": {
-                    break;
-                }
-                case "Right Justified": {
-                    break;
-                }
-				case "Browse" : {
-					JFileChooser chooser = new JFileChooser();
-					try
-					{
-						chooser.setCurrentDirectory( new java.io.File("."));
-						if(chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
-
-							input = chooser.getSelectedFile().getAbsolutePath();
-							System.out.println(input);
-					}
-					catch(Exception a)
-					{}
-					break;
-				}
-            }*/
 
             formatData.setText(String.format("<html><table> <tr><td align=\"right\">%s</td><td>&emsp;%d</td></tr> <tr><td align=\"right\">%s</td><td>&emsp;%d</td></tr> <tr><td align=\"right\">%s</td><td>&emsp;%d</td></tr> <tr><td align=\"right\">%s</td><td>&emsp;%.2f</td></tr> <tr><td align=\"right\">%s</td><td>&emsp;%.2f</td></tr> </table></html>", "Words Processed:", wordsProcessed, "Lines:", lines, "Blank Lines Removed:", blanksRemoved, "Average Words Per Line:", averageWPL, "Average Line Length:", averageLL));
         }
