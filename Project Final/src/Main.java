@@ -28,19 +28,18 @@ import java.io.IOException;
 
 public class Main {
     //Global Variables
-    static int wordsProcessed;
-    static int lines;
-    static int blanksRemoved;
+    static int wordsProcessed, lines, blanksRemoved;
     static double averageWPL;
     static double averageLL;
     static TextFileAnalyzer textFileAnalyzer;
 	static String input, output;
+	
     //Layouts
     static FlowLayout flow = new FlowLayout(FlowLayout.CENTER, 50, 20);
 
     //Text Field
     static JTextField inputFile = new JTextField("try.txt", 13);
-    static JTextField outputFile = new JTextField("out.txt", 13);
+    static JTextField outputFile = new JTextField("githubout.txt", 13);
 
     //Labels
     static JLabel formatData = new JLabel();
@@ -108,8 +107,12 @@ public class Main {
 					else{
 						textFileAnalyzer = new TextFileAnalyzer(input, output, false);
 					}
-				} catch (IOException e1) {
-					//add a dialog box
+				} catch (NullPointerException e1) {
+					//Error: input file not found
+                    JOptionPane.showMessageDialog(new JFrame(), "Error: Your input file doesn't exist.", "File Not Found", JOptionPane.ERROR_MESSAGE);
+				}
+				catch (IOException e2) {
+                    JOptionPane.showMessageDialog(new JFrame(), "Error: Your input file doesn't exist.", "File Not Found", JOptionPane.ERROR_MESSAGE);
 				}
 
 				wordsProcessed = textFileAnalyzer.getWordNumber();
@@ -128,8 +131,8 @@ public class Main {
 				averageLL = 0;
 
 			}
-
-/*
+            
+            /*String buttonPressed = e.getActionCommand();
             switch (buttonPressed) {
                 case "Format my File": {
                     try {
@@ -179,8 +182,6 @@ public class Main {
 					{}
 					break;
 				}
-
-
             }*/
 
             formatData.setText(String.format("<html><table> <tr><td align=\"right\">%s</td><td>&emsp;%d</td></tr> <tr><td align=\"right\">%s</td><td>&emsp;%d</td></tr> <tr><td align=\"right\">%s</td><td>&emsp;%d</td></tr> <tr><td align=\"right\">%s</td><td>&emsp;%.2f</td></tr> <tr><td align=\"right\">%s</td><td>&emsp;%.2f</td></tr> </table></html>", "Words Processed:", wordsProcessed, "Lines:", lines, "Blank Lines Removed:", blanksRemoved, "Average Words Per Line:", averageWPL, "Average Line Length:", averageLL));
@@ -326,48 +327,6 @@ public class Main {
         window.setLocation(100,100);
         window.setVisible(true);
         window.setResizable(false);
-        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        /*
-        JPanel panel = new JPanel();
-
-        JTextArea out = new JTextArea();
-        out.setEditable(false);
-        out.setFont(font);
-        BufferedReader in = null;
-        try {
-            in = new BufferedReader(new FileReader(inputFile.getText()));
-        } catch (FileNotFoundException e1) {
-            in = null;
-        }
-
-
-        String line = null;
-        try {
-            line = in.readLine();
-        } catch (IOException e1) {
-            e1.printStackTrace();
-        }
-
-
-        while (line != null) {
-            out.append(line + "\n");
-            try {
-                line = in.readLine();
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            }
-        }
-
-
-        panel.add(out);
-
-        JFrame inFile = new JFrame();
-        inFile.setContentPane(panel);
-        inFile.pack();
-        inFile.setLocation(1500,100);
-        inFile.setVisible(true);
-        inFile.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        */
+        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
     }
 }
