@@ -39,8 +39,8 @@ public class Main {
     static FlowLayout flow = new FlowLayout(FlowLayout.CENTER, 50, 20);
 
     //Text Field
-    static JTextField inputFile = new JTextField("C:\\Users\\Main\\Documents\\GitHub\\CSE360\\try.txt", 13);
-    static JTextField outputFile = new JTextField("C:\\Users\\Main\\Documents\\GitHub\\CSE360\\out.txt", 13);
+    static JTextField inputFile = new JTextField("try.txt", 13);
+    static JTextField outputFile = new JTextField("out.txt", 13);
 
     //Labels
     static JLabel formatData = new JLabel();
@@ -67,8 +67,7 @@ public class Main {
     //Button Handler Class
     private static class ButtonHandler implements ActionListener {
         public void actionPerformed(ActionEvent e){
-            String buttonPressed = "Hi"; //e.getActionCommand();
-			Object source = e.getSource();
+            Object source = e.getSource();
 
 			if(source == inputBrowseButton)
 			{
@@ -77,12 +76,12 @@ public class Main {
 					{
 						chooser.setCurrentDirectory( new java.io.File("."));
 						if(chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
-
 							input = chooser.getSelectedFile().getAbsolutePath();
-							//!System.out.println(input);
+							inputFile.setText(chooser.getSelectedFile().getName());
 					}
-					catch(Exception a)
-					{}
+					catch(Exception a){
+						//Add JDialogBox for error
+					}
 
 			}
 			else if(source == outputBrowseButton)
@@ -94,10 +93,11 @@ public class Main {
 						if(chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
 
 							output = chooser.getSelectedFile().getAbsolutePath();
-							System.out.println(output);
+							outputFile.setText(chooser.getSelectedFile().getName());
 					}
-					catch(Exception a)
-					{}
+					catch(Exception a){
+						
+					}
 			}
 			else if(source == formatButton)
 			{
