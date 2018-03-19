@@ -29,10 +29,6 @@ The purpose of this program, is to create friendly user interface by using a GUI
 ## Installation / Getting Started
 
 <li>Step 1: Download the program.</li>
-```
-*insert download link?*
-```
-
 <li>Step 2: Choose file location to upload to the GUI.</li>
 <li>Step 3: Select justification (Right or Left).</li>
 <li>Step 4: Click ‘Format My File’.</li>
@@ -40,7 +36,7 @@ The purpose of this program, is to create friendly user interface by using a GUI
 <li>Step 6: View results in new window.</li>
 
 ## User Interface Prototype
-<img src="userInterface-screen1.JPG" height="42" width="42">
+<img src="userInterface-screen1.JPG" height="400" width="400">
 
 ## Input and Output Format
 Input Format
