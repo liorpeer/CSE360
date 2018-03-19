@@ -36,7 +36,7 @@ The purpose of this program, is to create friendly user interface by using a GUI
 <li>Step 6: View results in new window.</li>
 
 ## User Interface Prototype
-<img src="userInterface-screen1.JPG" height="400" width="400">
+<img src="userInterface-screen1.JPG" height="400" width="500">
 
 ## Input and Output Format
 Input Format
