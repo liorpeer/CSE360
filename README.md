@@ -28,16 +28,37 @@ The purpose of this program, is to create friendly user interface by using a GUI
 
 ## Installation / Getting Started
 
-Step 1: Download the program.
+<li>Step 1: Download the program.</li>
 ```
 *insert download link?*
 ```
 
-Step 2: Choose file location to upload to the GUI.
-Step 3: Select justification (Right or Left).
-Step 4: Click ‘Format My File’.
-Step 5: Download output file.
-Step 6: View results in new window.
+<li>Step 2: Choose file location to upload to the GUI.</li>
+<li>Step 3: Select justification (Right or Left).</li>
+<li>Step 4: Click ‘Format My File’.</li>
+<li>Step 5: Download output file.</li>
+<li>Step 6: View results in new window.</li>
 
 ## User Interface Prototype
-<img src="userInterface-screen1.JPG">
+<img src="userInterface-screen1.JPG" height="42" width="42">
+
+## Input and Output Format
+Input Format
+<li>.txt file</li>
+<li>Any Size</li>
+
+Output Format
+<li>.txt file</li>
+<li>Cannot be the same as the input file.</li>
+<li>Maximum of 80 characters per line.</li>
+<li>Words must be separated by a single space.</li>
+
+## Test Run results
+
+## Appendices
+
+### Sample Input File
+
+### Sample Output File
+
+### Glossary
