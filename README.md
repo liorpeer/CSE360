@@ -8,7 +8,15 @@ Tin Pham
 Luke Mains
 
 #TO DO:
--Right Justify/Left justify at the same time? (Full justification)
+<li>Right Justify/Left justify at the same time? (Full justification)</li>
+<li>Set a specific line length</li>
+<li>Find out how many spaces were added</li>
+<li>Single spaced or double spaced</li>
+
+Due - 30 March, User guide with 3 test cases
+
+Exam in 2 weeks
+
 
 ## Introduction:
      The purpose of this document is to record the process of building and implementing a text analysis GUI. This includes an overview and an explanation of how to use the program.
