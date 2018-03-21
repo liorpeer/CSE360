@@ -7,6 +7,8 @@
  * 
  * Date 3-14-2018
  * 
+ * Version 1
+ * 
  * Description:
  * 
  * This program is a text file formater. It 
