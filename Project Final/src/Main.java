@@ -301,8 +301,16 @@ public class Main {
     }
     
     public static void main(String[] args){
+    	//Initial Values
+    	wordsProcessed = 484;
+    	lines = 44;
+    	blanksRemoved = 10;
+    	spacesAdded = 46;
+    	averageWPL = 14.24;
+    	averageLL = 74.12;
+    	
     //Set up JPanel
-        mainPanel.setLayout(flow_right);
+        mainPanel.setLayout(flow_center);
         setupComponents();
 
     //add components
