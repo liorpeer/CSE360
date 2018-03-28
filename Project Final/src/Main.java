@@ -302,7 +302,7 @@ public class Main {
     
     public static void main(String[] args){
     //Set up JPanel
-        mainPanel.setLayout(flow_center);
+        mainPanel.setLayout(flow_right);
         setupComponents();
 
     //add components
