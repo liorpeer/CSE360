@@ -50,7 +50,6 @@ public class Main {
     //static JTextField inputFile = new JTextField("try.txt", 13);
     //static JTextField outputFile = new JTextField("githubout.txt", 13);
     
-
     //Labels
     static JLabel formatData = new JLabel();
     static JLabel inputLabel = new JLabel("Select Input File:");
@@ -301,16 +300,16 @@ public class Main {
     }
     
     public static void main(String[] args){
-    	//Initial Values
-    	wordsProcessed = 484;
+    //Initial Values
+    /*	wordsProcessed = 484;
     	lines = 44;
     	blanksRemoved = 10;
     	spacesAdded = 46;
     	averageWPL = 14.24;
-    	averageLL = 74.12;
+    	averageLL = 74.12;*/
     	
     //Set up JPanel
-        mainPanel.setLayout(flow_center);
+        mainPanel.setLayout(flow_right);
         setupComponents();
 
     //add components
