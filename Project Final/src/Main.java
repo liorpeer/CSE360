@@ -4,18 +4,18 @@
  * 	Karissa Kauspedas
  * 	Tin Pham
  * 	Lior Peer
- * 
+ *
  * Date 3-14-2018
- * 
+ *
  * Description:
- * 
- * This program is a text file formater. It 
+ *
+ * This program is a text file formater. It
  * takes an input file and converts it to an
- * ouptut file (both .txt files). The output 
+ * ouptut file (both .txt files). The output
  * is limited to 80 characters per line while
- * still keeping full words intact. It also 
+ * still keeping full words intact. It also
  * removes all blank lines. Lastly the program
- * analyzes the input file. The main metrics 
+ * analyzes the input file. The main metrics
  * are:
  * 	- Words Processed
  *  - Number of lines
@@ -36,7 +36,7 @@ public class Main {
     static double averageLL;
     static TextFileAnalyzer textFileAnalyzer;
 	static String input, output;
-	
+
     //Layouts
     static FlowLayout flow_right = new FlowLayout(FlowLayout.RIGHT, 40, 20);
     static FlowLayout flow_center = new FlowLayout(FlowLayout.CENTER, 40, 20);
@@ -45,11 +45,11 @@ public class Main {
     static JTextField inputFile = new JTextField("", 15);
     static JTextField outputFile = new JTextField("", 15);
     static JTextField maxChars = new JTextField("80", 5);
-    
+
     //Text Fields - Mac Settings
     //static JTextField inputFile = new JTextField("try.txt", 13);
     //static JTextField outputFile = new JTextField("githubout.txt", 13);
-    
+
     //Labels
     static JLabel formatData = new JLabel();
     static JLabel inputLabel = new JLabel("Select Input File:");
@@ -83,7 +83,7 @@ public class Main {
     private static class ButtonHandler implements ActionListener {
         public void actionPerformed(ActionEvent e){
             Object source = e.getSource();
-
+			Integer.parseInt(maxChars.getText());
 			if(source == inputBrowseButton)
 			{
 					JFileChooser chooser = new JFileChooser();
@@ -113,13 +113,22 @@ public class Main {
 			else if(source == formatButton)
 			{
 				try {
-					if(leftJustifyButton.isSelected()) {
-						textFileAnalyzer = new TextFileAnalyzer(input, output, true);
+					if(leftJustifyButton.isSelected())
+					{
+						textFileAnalyzer = new TextFileAnalyzer(input, output, 0,Integer.parseInt(maxChars.getText()));
 					}
-					else{
-						textFileAnalyzer = new TextFileAnalyzer(input, output, false);
+					else if(rightJustifyButton.isSelected())
+					{
+						textFileAnalyzer = new TextFileAnalyzer(input, output, 1,Integer.parseInt(maxChars.getText()));
 					}
-				} 
+					else if(fullJustifyButton.isSelected())
+					{
+
+						textFileAnalyzer = new TextFileAnalyzer(input, output, 2,Integer.parseInt(maxChars.getText()));
+					}
+					else
+						textFileAnalyzer = new TextFileAnalyzer(input, output, 0,Integer.parseInt(maxChars.getText()));
+				}
 				catch (IOException e2) {
 					//Error: input file does not exist
                     JOptionPane.showMessageDialog(new JFrame(), "Error: Your input file doesn't exist.", "File Not Found", JOptionPane.ERROR_MESSAGE);
@@ -145,14 +154,14 @@ public class Main {
 				averageLL = 0;
 				spacesAdded = 0;
 			}
-			
+
 			//Reset the text of the Data Label
 			setTextFormatDataLabel();
 		}
     }
 
     /**
-     * This gives all the components the correct size, font, etc. 
+     * This gives all the components the correct size, font, etc.
      * Mostly used to make the application look prettier.
      */
     public static void setupComponents() {
@@ -198,21 +207,21 @@ public class Main {
         justifyButtonGroup.add(leftJustifyButton);
         justifyButtonGroup.add(rightJustifyButton);
         justifyButtonGroup.add(fullJustifyButton);
-        
+
         ButtonGroup spacingButtonGroup = new ButtonGroup();
         spacingButtonGroup.add(singleSpaceButton);
         spacingButtonGroup.add(doubleSpaceButton);
-        
+
     //Set text of the important data label
         setTextFormatDataLabel();
     }
-    
+
     /**
      * This function is used to set the JLabel that contains the data
-     * from formating the input file. It's kind of complicated. I 
+     * from formating the input file. It's kind of complicated. I
      * read online that you have to use HTML to have multiple lines
      * and stuff in a JLabel.
-     * 
+     *
      * To get the JLabel to look how I wanted, stack
      * overflow said that i had to use HTML so I ended
      * up making a table in HTML so that each part was
@@ -274,7 +283,7 @@ public class Main {
      *                 &emsp;###.##
      *             </td>
      *         </tr>
-     *         
+     *
      *         //Row 6
      *         <tr>
      *             <td align="right">
@@ -288,7 +297,7 @@ public class Main {
      * </html>
      */
     public static void setTextFormatDataLabel() {
-        formatData.setText(	
+        formatData.setText(
         		String.format("<html> <table>") +
         		String.format("<tr> <td align=\"right\"> %s </td><td> &emsp; %d   </td> </tr>", "Words Processed:", wordsProcessed) +
         		String.format("<tr> <td align=\"right\"> %s </td><td> &emsp; %d   </td> </tr>", "Lines:", lines) +
@@ -298,7 +307,7 @@ public class Main {
         		String.format("<tr> <td align=\"right\"> %s </td><td> &emsp; %d   </td> </tr>", "Spaces Added: ", spacesAdded) +
         		String.format("</table> </html>"));
     }
-    
+
     public static void main(String[] args){
     //Initial Values
     /*	wordsProcessed = 484;
@@ -307,7 +316,7 @@ public class Main {
     	spacesAdded = 46;
     	averageWPL = 14.24;
     	averageLL = 74.12;*/
-    	
+
     //Set up JPanel
         mainPanel.setLayout(flow_right);
         setupComponents();
@@ -348,6 +357,6 @@ public class Main {
         window.setLocation(100,100);
         window.setVisible(true);
         window.setResizable(false);
-        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
+        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 }
