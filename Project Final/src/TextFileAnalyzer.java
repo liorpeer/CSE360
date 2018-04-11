@@ -23,7 +23,6 @@ public	class	TextFileAnalyzer	{
         this.leftJustify = leftJustify;
         this.charPL = charPL;
         this.dbl_space = dbl_space;
-        System.out.println(charPL);
         AnalyzeFile();
 
         writeOutputFile();
@@ -112,7 +111,6 @@ public	class	TextFileAnalyzer	{
 					both = bothJust.toCharArray(); //charArray
 					sizeBoth = bothJust.length();	// size of line
 
-					//System.out.println( charPL +" " +sizeBoth);
 					int p = sizeBoth;
 					while(both[p-1] == 32)
 					{
@@ -120,7 +118,6 @@ public	class	TextFileAnalyzer	{
 						count++;
 					}
 
-					//System.out.println(count);
 					for(int i = 1, k = 0; i <= count ; k++)
 					{
 						if(k < sizeBoth-1)
