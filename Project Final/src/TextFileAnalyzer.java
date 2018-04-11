@@ -84,9 +84,8 @@ public	class	TextFileAnalyzer	{
 		char []both;
 		int count = 0;
 		int sizeBoth = 0;
-		int spaces = 0;
-		int times = 1;
-        while(sc.hasNext()){
+		
+		while(sc.hasNext()){
             s = sc.next();
 
             if(output.length() + s.length() > charPL){
