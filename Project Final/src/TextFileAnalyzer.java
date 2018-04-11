@@ -9,9 +9,9 @@ public	class	TextFileAnalyzer	{
     private	String	pathToTextFile, pathToOutput;
     private	int	lineNumber, blankLine, wordNumber;
     private	double	avgWordPerLine,	avgCharLine;
-    private boolean leftJustify;
+    private int leftJustify, charPL;
 
-    public	TextFileAnalyzer(String	pathToTextFile,	String pathToOutput, boolean leftJustify) throws IOException {
+    public	TextFileAnalyzer(String	pathToTextFile,	String pathToOutput, int leftJustify, int charPL) throws IOException {
         this.pathToTextFile	= pathToTextFile;
         this.pathToOutput = pathToOutput;
         this.lineNumber	= 0;
@@ -20,6 +20,8 @@ public	class	TextFileAnalyzer	{
         this.avgWordPerLine	= 0;
         this.avgCharLine = 0;
         this.leftJustify = leftJustify;
+        this.charPL = charPL;
+        System.out.println(charPL);
         AnalyzeFile();
 
         writeOutputFile();
@@ -67,15 +69,7 @@ public	class	TextFileAnalyzer	{
         avgCharLine	=	totalChar / lineNumber;
         br.close();
     }
-/*		No longer needed---------------------------------------------
-    private	int	AnalyzeWordArray(String[]	wordArray)	{
-        int	sumOfChar	=	0;
-        for(int	i	=	0	;	i	<	wordArray.length	;	i++)	{
-            sumOfChar	+=	wordArray[i].length();
-        }
-        return	sumOfChar;
-    }
-*/
+
     //create output file
     private	void writeOutputFile() throws IOException {
         Scanner	sc	=	new	Scanner(new	File(pathToTextFile));
@@ -83,19 +77,70 @@ public	class	TextFileAnalyzer	{
 
         String output = "";
         String s;
-
+		String left;
+		String right;
+		String bothJust;
+		char []both;
+		int count = 0;
+		int sizeBoth = 0;
+		int spaces = 0;
+		int times = 1;
         while(sc.hasNext()){
             s = sc.next();
 
-            if(output.length() + s.length() > 80){
+            if(output.length() + s.length() > charPL){
+
+				//create string for string format
+				left = "%" + (-charPL) + "s";
+				right = "%" + (charPL) + "s";
+
+                //0 for leftjustification, 1 for right justification, 2 for both justification
+                if(leftJustify == 0){
+                    //out.println(String.format("%-80s", output.trim()));
+                out.println(String.format(left, output.trim()));
+                }
+                else if(leftJustify == 1){
+                    //out.println(String.format("%80s",output.trim()));
+
+                out.println(String.format(right, output.trim()));
+                }
+                else if(leftJustify == 2)
+                {
+					bothJust = String.format(left, output.trim());
+					both = bothJust.toCharArray(); //charArray
+					sizeBoth = bothJust.length();	// size of line
+
+					//System.out.println( charPL +" " +sizeBoth);
+					int p = sizeBoth;
+					while(both[p-1] == 32)
+					{
+						p--;
+						count++;
+					}
+
+					//System.out.println(count);
+					for(int i = 1, k = 0; i <= count ; k++)
+					{
+						if(k < sizeBoth-1)
+						if(both[k] == 32)
+						{
+
+								bothJust = bothJust.substring(0,k) + " " + bothJust.substring(k,sizeBoth-1);
+								both = bothJust.toCharArray();
+								k++;
+								i++;
+
+						}
+						if(k == sizeBoth -1)
+							k = 0;
+					}
 
 
-                if(leftJustify){
-                    out.println(String.format("%-80s", output.trim()));
-                }
-                else {
-                    out.println(String.format("%80s",output.trim()));
-                }
+
+					count = 0;
+					out.println(bothJust +"\n");
+
+				}
 
                 output	= "";
             }
@@ -105,11 +150,11 @@ public	class	TextFileAnalyzer	{
         }
 
         //Print final line
-        if(leftJustify){
-            out.print(String.format("%-80s", output.trim()));
+        if(leftJustify == 0){
+            //out.print(String.format("%-80s", output.trim()));
         }
-        else {
-            out.print(String.format("%80s",output.trim()));
+        else if(leftJustify == 1){
+            //out.print(String.format("%80s",output.trim()));
         }
 
         out.close();
