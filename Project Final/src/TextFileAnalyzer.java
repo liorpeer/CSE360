@@ -10,8 +10,9 @@ public	class	TextFileAnalyzer	{
     private	int	lineNumber, blankLine, wordNumber;
     private	double	avgWordPerLine,	avgCharLine;
     private int leftJustify, charPL;
+    private boolean dbl_space;
 
-    public	TextFileAnalyzer(String	pathToTextFile,	String pathToOutput, int leftJustify, int charPL) throws IOException {
+    public	TextFileAnalyzer(String	pathToTextFile,	String pathToOutput, int leftJustify, int charPL, boolean dbl_space) throws IOException {
         this.pathToTextFile	= pathToTextFile;
         this.pathToOutput = pathToOutput;
         this.lineNumber	= 0;
@@ -21,6 +22,7 @@ public	class	TextFileAnalyzer	{
         this.avgCharLine = 0;
         this.leftJustify = leftJustify;
         this.charPL = charPL;
+        this.dbl_space = dbl_space;
         System.out.println(charPL);
         AnalyzeFile();
 
@@ -93,7 +95,7 @@ public	class	TextFileAnalyzer	{
 				//create string for string format
 				left = "%" + (-charPL) + "s";
 				right = "%" + (charPL) + "s";
-
+				
                 //0 for leftjustification, 1 for right justification, 2 for both justification
                 if(leftJustify == 0){
                     //out.println(String.format("%-80s", output.trim()));
@@ -143,6 +145,10 @@ public	class	TextFileAnalyzer	{
 				}
 
                 output	= "";
+                
+                if(dbl_space == true) {
+                	out.println();
+                }
             }
             else{
                 output	+=	" "	+ s;

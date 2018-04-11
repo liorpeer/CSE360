@@ -113,21 +113,38 @@ public class Main {
 			else if(source == formatButton)
 			{
 				try {
-					if(leftJustifyButton.isSelected())
-					{
-						textFileAnalyzer = new TextFileAnalyzer(input, output, 0,Integer.parseInt(maxChars.getText()));
+					if(singleSpaceButton.isSelected()) {
+						if(leftJustifyButton.isSelected())
+						{
+							textFileAnalyzer = new TextFileAnalyzer(input, output, 0,Integer.parseInt(maxChars.getText()), false);
+						}
+						else if(rightJustifyButton.isSelected())
+						{
+							textFileAnalyzer = new TextFileAnalyzer(input, output, 1,Integer.parseInt(maxChars.getText()), false);
+						}
+						else if(fullJustifyButton.isSelected())
+						{
+							textFileAnalyzer = new TextFileAnalyzer(input, output, 2,Integer.parseInt(maxChars.getText()), false);
+						}
+						else
+							textFileAnalyzer = new TextFileAnalyzer(input, output, 0,Integer.parseInt(maxChars.getText()), false);
 					}
-					else if(rightJustifyButton.isSelected())
-					{
-						textFileAnalyzer = new TextFileAnalyzer(input, output, 1,Integer.parseInt(maxChars.getText()));
+					else {
+						if(leftJustifyButton.isSelected())
+						{
+							textFileAnalyzer = new TextFileAnalyzer(input, output, 0,Integer.parseInt(maxChars.getText()), true);
+						}
+						else if(rightJustifyButton.isSelected())
+						{
+							textFileAnalyzer = new TextFileAnalyzer(input, output, 1,Integer.parseInt(maxChars.getText()), true);
+						}
+						else if(fullJustifyButton.isSelected())
+						{
+							textFileAnalyzer = new TextFileAnalyzer(input, output, 2,Integer.parseInt(maxChars.getText()), true);
+						}
+						else
+							textFileAnalyzer = new TextFileAnalyzer(input, output, 0,Integer.parseInt(maxChars.getText()), true);
 					}
-					else if(fullJustifyButton.isSelected())
-					{
-
-						textFileAnalyzer = new TextFileAnalyzer(input, output, 2,Integer.parseInt(maxChars.getText()));
-					}
-					else
-						textFileAnalyzer = new TextFileAnalyzer(input, output, 0,Integer.parseInt(maxChars.getText()));
 				}
 				catch (IOException e2) {
 					//Error: input file does not exist
