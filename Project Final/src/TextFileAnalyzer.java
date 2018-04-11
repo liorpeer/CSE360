@@ -138,7 +138,7 @@ public	class	TextFileAnalyzer	{
 
 
 					count = 0;
-					out.println(bothJust +"\n");
+					out.println(bothJust);
 
 				}
 
