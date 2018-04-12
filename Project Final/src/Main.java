@@ -156,7 +156,7 @@ public class Main {
 				blanksRemoved = textFileAnalyzer.getBlankLine();
 				averageWPL = textFileAnalyzer.getAvgWordPerLine();
 				averageLL = textFileAnalyzer.getAvgCharLine();
-				spacesAdded = textFileAnalyser.getSpacesAdded();
+				spacesAdded = textFileAnalyzer.getSpacesAdded();
 
 			}
 			else if(source == resetButton) {
