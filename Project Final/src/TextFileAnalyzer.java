@@ -7,7 +7,7 @@ import	java.util.Scanner;
 
 public	class	TextFileAnalyzer	{
     private	String	pathToTextFile, pathToOutput;
-    private	int	lineNumber, blankLine, wordNumber;
+    private	int	lineNumber, blankLine, wordNumber, totalSpaces;
     private	double	avgWordPerLine,	avgCharLine;
     private int leftJustify, charPL;
     private boolean dbl_space;
@@ -20,6 +20,7 @@ public	class	TextFileAnalyzer	{
         this.wordNumber	= 0;
         this.avgWordPerLine	= 0;
         this.avgCharLine = 0;
+        this.totalSpaces = 0;
         this.leftJustify = leftJustify;
         this.charPL = charPL;
         this.dbl_space = dbl_space;
@@ -93,7 +94,7 @@ public	class	TextFileAnalyzer	{
 				//create string for string format
 				left = "%" + (-charPL) + "s";
 				right = "%" + (charPL) + "s";
-				
+
                 //0 for leftjustification, 1 for right justification, 2 for both justification
                 if(leftJustify == 0){
                     //out.println(String.format("%-80s", output.trim()));
@@ -124,6 +125,7 @@ public	class	TextFileAnalyzer	{
 						{
 
 								bothJust = bothJust.substring(0,k) + " " + bothJust.substring(k,sizeBoth-1);
+								totalSpaces++;
 								both = bothJust.toCharArray();
 								k++;
 								i++;
@@ -141,7 +143,7 @@ public	class	TextFileAnalyzer	{
 				}
 
                 output	= "";
-                
+
                 if(dbl_space == true) {
                 	out.println();
                 }
@@ -179,5 +181,9 @@ public	class	TextFileAnalyzer	{
     public double getAvgCharLine()	{
         return	avgCharLine;
     }
+    public int getSpacesAdded()
+    {
+		return totalSpaces;
+	}
 
 }
