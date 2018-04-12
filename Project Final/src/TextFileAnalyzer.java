@@ -145,7 +145,8 @@ public	class	TextFileAnalyzer	{
                 output	= "";
 
                 if(dbl_space == true) {
-                	out.println();
+                		out.println();
+                		totalSpaces++;
                 }
             }
             else{
