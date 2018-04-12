@@ -46,10 +46,6 @@ public class Main {
     static JTextField outputFile = new JTextField("", 15);
     static JTextField maxChars = new JTextField("80", 5);
 
-    //Text Fields - Mac Settings
-    //static JTextField inputFile = new JTextField("try.txt", 13);
-    //static JTextField outputFile = new JTextField("githubout.txt", 13);
-
     //Labels
     static JLabel formatData = new JLabel();
     static JLabel inputLabel = new JLabel("Select Input File:");
