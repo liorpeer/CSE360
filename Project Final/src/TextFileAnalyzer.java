@@ -60,7 +60,7 @@ public	class	TextFileAnalyzer	{
 									wordNumber++;
 									else if(i == line.length() - 1 && letters[i] != 32)
 											wordNumber++;
-							totalChar++;
+							//totalChar++;
 
            		}
 			}
@@ -77,7 +77,7 @@ public	class	TextFileAnalyzer	{
 
         //avgWordPerLine	=	wordNumber	/	postLineNum;
         avgWordPerLine	=	wordNumber	/	lineNumber;
-        avgCharLine	=	totalChar; // lineNumber;
+        //avgCharLine	=	totalChar; // lineNumber;
         br.close();
     }
 
@@ -91,6 +91,7 @@ public	class	TextFileAnalyzer	{
 		String left;
 		String right;
 		String bothJust;
+		int tester = 0;
 		char []both;
 		int count = 0;
 		int sizeBoth = 0;
@@ -106,17 +107,20 @@ public	class	TextFileAnalyzer	{
 
                 //0 for leftjustification, 1 for right justification, 2 for both justification
                 if(leftJustify == 0){
+					tester += output.length();
 					postLineNum++;
                 out.println(String.format(left, output.trim()));
                 }
                 else if(leftJustify == 1){
 					postLineNum++;
+					tester += output.length();
                     //out.println(String.format("%80s",output.trim()));
 
                 out.println(String.format(right, output.trim()));
                 }
                 else if(leftJustify == 2)
                 {
+					tester += output.length();
 					bothJust = String.format(left, output.trim());
 					both = bothJust.toCharArray(); //charArray
 					sizeBoth = bothJust.length();	// size of line
@@ -159,6 +163,7 @@ public	class	TextFileAnalyzer	{
             else{
                 output	+=	" "	+ s;
             }
+            avgCharLine = tester;
         }
 
         //Print final line
