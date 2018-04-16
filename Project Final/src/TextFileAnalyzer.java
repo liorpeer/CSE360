@@ -7,7 +7,7 @@ import	java.util.Scanner;
 
 public	class	TextFileAnalyzer	{
     private	String	pathToTextFile, pathToOutput;
-    private	int	lineNumber, blankLine, wordNumber, totalSpaces;
+    private	int	lineNumber,postLineNum, blankLine, wordNumber, totalSpaces;
     private	double	avgWordPerLine,	avgCharLine;
     private int leftJustify, charPL;
     private boolean dbl_space;
@@ -16,6 +16,7 @@ public	class	TextFileAnalyzer	{
         this.pathToTextFile	= pathToTextFile;
         this.pathToOutput = pathToOutput;
         this.lineNumber	= 0;
+        this.postLineNum = 0;
         this.blankLine	= 0;
         this.wordNumber	= 0;
         this.avgWordPerLine	= 0;
@@ -38,7 +39,7 @@ public	class	TextFileAnalyzer	{
         while	((line	=	br.readLine())	!=	null)	{
 
 
-            lineNumber	++;
+            lineNumber++;
 			char []letters = line.toCharArray();
 
 
@@ -54,7 +55,7 @@ public	class	TextFileAnalyzer	{
 
 							//Checks if there's a char and a space in that order, if the last char at the last index is not a space then it counts as a word as well
 							//32 represents a space
-							if(i > 0)
+							if(i >= 0)
 								if(letters[i] == 32 && letters[i-1] != 32)
 									wordNumber++;
 									else if(i == line.length() - 1 && letters[i] != 32)
@@ -66,9 +67,17 @@ public	class	TextFileAnalyzer	{
 
 
         }
+        //if dbl_space is true, linenumber doubles in size - 1 because we insert a line
+		if(dbl_space == true)
+		{
 
+			//postLineNum = (2*lineNumber) - 1;
+			lineNumber = (lineNumber*2) -1;
+		}
+
+        //avgWordPerLine	=	wordNumber	/	postLineNum;
         avgWordPerLine	=	wordNumber	/	lineNumber;
-        avgCharLine	=	totalChar / lineNumber;
+        avgCharLine	=	totalChar; // lineNumber;
         br.close();
     }
 
@@ -85,7 +94,7 @@ public	class	TextFileAnalyzer	{
 		char []both;
 		int count = 0;
 		int sizeBoth = 0;
-		
+
 		while(sc.hasNext()){
             s = sc.next();
 
@@ -97,10 +106,11 @@ public	class	TextFileAnalyzer	{
 
                 //0 for leftjustification, 1 for right justification, 2 for both justification
                 if(leftJustify == 0){
-                    //out.println(String.format("%-80s", output.trim()));
+					postLineNum++;
                 out.println(String.format(left, output.trim()));
                 }
                 else if(leftJustify == 1){
+					postLineNum++;
                     //out.println(String.format("%80s",output.trim()));
 
                 out.println(String.format(right, output.trim()));
@@ -110,7 +120,7 @@ public	class	TextFileAnalyzer	{
 					bothJust = String.format(left, output.trim());
 					both = bothJust.toCharArray(); //charArray
 					sizeBoth = bothJust.length();	// size of line
-
+					postLineNum++;
 					int p = sizeBoth;
 					while(both[p-1] == 32)
 					{
@@ -134,9 +144,6 @@ public	class	TextFileAnalyzer	{
 						if(k == sizeBoth -1)
 							k = 0;
 					}
-
-
-
 					count = 0;
 					out.println(bothJust);
 
@@ -168,7 +175,13 @@ public	class	TextFileAnalyzer	{
 
     //Get methods
     public int getLineNumber(){
-        return lineNumber;
+
+        //return lineNumber;
+        if(dbl_space == true)
+        	return 2*postLineNum -1;
+        else
+        	return postLineNum;
+
     }
     public int getBlankLine()	{
         return	blankLine;
@@ -177,10 +190,16 @@ public	class	TextFileAnalyzer	{
         return	wordNumber;
     }
     public double getAvgWordPerLine()	{
-        return	avgWordPerLine;
+		if(dbl_space == true)
+        	return	wordNumber/((2*postLineNum)-1);
+        else
+        	return wordNumber/postLineNum;
     }
     public double getAvgCharLine()	{
-        return	avgCharLine;
+		if(dbl_space == true)
+        return	avgCharLine/((2*postLineNum) - 1);
+        else
+        return avgCharLine/postLineNum;
     }
     public int getSpacesAdded()
     {
