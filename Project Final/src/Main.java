@@ -30,7 +30,7 @@ import javax.swing.*;
 import java.io.IOException;
 
 public class Main {
-    //Global Variables
+	//Global Variables
     static int wordsProcessed, lines, blanksRemoved, spacesAdded;
     static double averageWPL;
     static double averageLL;
@@ -77,88 +77,77 @@ public class Main {
      * This class implements all the actions needed when a button is pressed.
      */
     private static class ButtonHandler implements ActionListener {
-        public void actionPerformed(ActionEvent e){
+    	//Constants
+    	final int LEFT_JUSTIFY = 0, RIGHT_JUSTIFY = 1, FULL_JUSTIFY = 2;
+    	
+        public void actionPerformed(ActionEvent e) {
             Object source = e.getSource();
 			Integer.parseInt(maxChars.getText());
-			if(source == inputBrowseButton)
-			{
+			
+			//Browse for input file.
+			if(source == inputBrowseButton) {
 					JFileChooser chooser = new JFileChooser();
-					try
-					{
+					try {
 						chooser.setCurrentDirectory( new java.io.File("."));
-						if(chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
+						if(chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
 							input = chooser.getSelectedFile().getAbsolutePath();
 							inputFile.setText(chooser.getSelectedFile().getName());
-					}
-					catch(Exception a){}
-
+						}
+					} catch(Exception a){}
 			}
-			else if(source == outputBrowseButton)
-			{
+			
+			//Browse for output file.
+			else if(source == outputBrowseButton) {
 					JFileChooser chooser = new JFileChooser();
-					try
-					{
+					try {
 						chooser.setCurrentDirectory( new java.io.File("."));
-						if(chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
-
+						if(chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
 							output = chooser.getSelectedFile().getAbsolutePath();
 							outputFile.setText(chooser.getSelectedFile().getName());
-					}
-					catch(Exception a){}
+						}
+					} catch(Exception a){}
 			}
-			else if(source == formatButton)
-			{
+			
+			//Format Button
+			else if(source == formatButton) {
+				int justification;
+				boolean doubleSpaced;
+				
+				//Set Justification (Default = left)
+				if(fullJustifyButton.isSelected())
+					justification = this.FULL_JUSTIFY;
+				else if(rightJustifyButton.isSelected())
+					justification = this.RIGHT_JUSTIFY;
+				else
+					justification = this.LEFT_JUSTIFY; // I did left justify last because I want it to be the default.
+				
+				//Set Spacing (Default = single)
+				if(doubleSpaceButton.isSelected())
+					doubleSpaced = true;
+				else 
+					doubleSpaced = false; //I want single spacing to be the default.
+				
+				//Create the text file analyzer object. This runs the analysis from the constructor.
 				try {
-					if(singleSpaceButton.isSelected()) {
-						if(leftJustifyButton.isSelected())
-						{
-							textFileAnalyzer = new TextFileAnalyzer(input, output, 0,Integer.parseInt(maxChars.getText()), false);
-						}
-						else if(rightJustifyButton.isSelected())
-						{
-							textFileAnalyzer = new TextFileAnalyzer(input, output, 1,Integer.parseInt(maxChars.getText()), false);
-						}
-						else if(fullJustifyButton.isSelected())
-						{
-							textFileAnalyzer = new TextFileAnalyzer(input, output, 2,Integer.parseInt(maxChars.getText()), false);
-						}
-						else
-							textFileAnalyzer = new TextFileAnalyzer(input, output, 0,Integer.parseInt(maxChars.getText()), false);
-					}
-					else {
-						if(leftJustifyButton.isSelected())
-						{
-							textFileAnalyzer = new TextFileAnalyzer(input, output, 0,Integer.parseInt(maxChars.getText()), true);
-						}
-						else if(rightJustifyButton.isSelected())
-						{
-							textFileAnalyzer = new TextFileAnalyzer(input, output, 1,Integer.parseInt(maxChars.getText()), true);
-						}
-						else if(fullJustifyButton.isSelected())
-						{
-							textFileAnalyzer = new TextFileAnalyzer(input, output, 2,Integer.parseInt(maxChars.getText()), true);
-						}
-						else
-							textFileAnalyzer = new TextFileAnalyzer(input, output, 0,Integer.parseInt(maxChars.getText()), true);
-					}
-				}
-				catch (IOException e2) {
+					textFileAnalyzer = new TextFileAnalyzer(input, output, justification,Integer.parseInt(maxChars.getText()), doubleSpaced);
+				} catch (IOException e2) { 
 					//Error: input file does not exist
                     JOptionPane.showMessageDialog(new JFrame(), "Error: Your input file doesn't exist.", "File Not Found", JOptionPane.ERROR_MESSAGE);
-				}
-				catch (NullPointerException e1) {
+				} catch (NullPointerException e1) {
 					//Error: output file does not exist
                     JOptionPane.showMessageDialog(new JFrame(), "Error: Your output file doesn't exist.", "File Not Found", JOptionPane.ERROR_MESSAGE);
 				}
-
+				
+				//Set the data lable values.
 				wordsProcessed = textFileAnalyzer.getWordNumber();
 				lines = textFileAnalyzer.getLineNumber();
 				blanksRemoved = textFileAnalyzer.getBlankLine();
 				averageWPL = textFileAnalyzer.getAvgWordPerLine();
 				averageLL = textFileAnalyzer.getAvgCharLine();
 				spacesAdded = textFileAnalyzer.getSpacesAdded();
-
 			}
+			
+			//Reset Button
 			else if(source == resetButton) {
 				wordsProcessed = 0;
 				lines = 0;
@@ -322,14 +311,6 @@ public class Main {
     }
 
     public static void main(String[] args){
-    //Initial Values
-    /*	wordsProcessed = 484;
-    	lines = 44;
-    	blanksRemoved = 10;
-    	spacesAdded = 46;
-    	averageWPL = 14.24;
-    	averageLL = 74.12;*/
-
     //Set up JPanel
         mainPanel.setLayout(flow_right);
         setupComponents();

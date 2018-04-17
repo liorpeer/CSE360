@@ -12,152 +12,143 @@ public class TextFileAnalyzer {
 	//Local Variables
     private	String	pathToTextFile, pathToOutput;
     private	int	lineNumber,postLineNum, blankLine, wordNumber, totalSpaces;
-    private	double	avgWordPerLine,	avgCharLine;
-    private int leftJustify, charPL;
-    private boolean dbl_space;
+    private	double avgCharLine;
+    private int justification, charPL;
+    private boolean double_spaced;
 
     //Constructor
     TextFileAnalyzer(String	pathToTextFile,	String pathToOutput, int leftJustify, int charPL, boolean dbl_space) throws IOException {
         this.pathToTextFile	= pathToTextFile;
         this.pathToOutput = pathToOutput;
-        this.leftJustify = leftJustify;
+        this.justification = leftJustify;
         this.charPL = charPL;
-        this.dbl_space = dbl_space;
+        this.double_spaced = dbl_space;
         AnalyzeFile();
 
         writeOutputFile();
     }
 
-    // upload file and analyze it
+    /*
+     * This method opens the input file and analyzes it.
+     */
     private	void AnalyzeFile() throws IOException {
         File file =	new	File(this.pathToTextFile);
         BufferedReader br =	new	BufferedReader(new FileReader(file));
-        String line;
-        int	totalChar =	0;
-
-
-        while((line	=	br.readLine())	!=	null)
-        {
+        String line = br.readLine();
+        
+        while(line != null) {
             lineNumber++;
-	    char []letters = line.toCharArray();
+            char[] letters = line.toCharArray();
 
-            if(line.trim().isEmpty())
+            if(line.trim().isEmpty()) {
                 blankLine++;
-			else
-			{
-
-				for(int i = 0; i < line.length();i++)
-				{
-
-
+            }
+			else {
+				for(int i = 0; i < line.length();i++) {
 					//Checks if there's a char and a space in that order, if the last char at the last index is not a space then it counts as a word as well
-				//32 represents a space
-					if(i >= 0)
-					if(letters[i] == 32 && letters[i-1] != 32)
+					if(letters[i] == ' ' && letters[i - 1] != ' ')
 						wordNumber++;
-					else if(i == line.length() - 1 && letters[i] != 32)
+					else if(i == line.length() - 1 && letters[i] != ' ')
 						wordNumber++;
-
-                                }
+                }
 			}
+            
+            line	= br.readLine();
         }
 
         //if dbl_space is true, line number doubles in size - 1 because we insert a line
-		if(dbl_space == true) {
-			//postLineNum = (2*lineNumber) - 1;
-			lineNumber = (lineNumber*2) -1;
-		}
+		if(double_spaced == true)
+			lineNumber = (lineNumber*2) - 1;
 
-        avgWordPerLine	=	wordNumber	/	lineNumber;
         br.close();
     }
 
-    //create output file
-    private	void writeOutputFile() throws IOException
-    {
+    /*
+     * This method opens the output file and writes the formatted text to it.
+     */
+    private	void writeOutputFile() throws IOException {
         Scanner	sc = new Scanner(new File(pathToTextFile));
         PrintWriter	out	= new PrintWriter(pathToOutput);
 
         String output = "";
-        String s;
-		String left;
-		String right;
-		String bothJust;
-		int tester = 0;
-		char []both;
-		int count = 0;
-		int sizeBoth = 0;
+        String word;
+		String left_justify_format;
+		String right_justify_format;
+		String tempString;
+		char[] tempCharArray;
+		int numOfEndSpaces = 0;
 
 		while(sc.hasNext()) {
-            s = sc.next();
+            word = sc.next();
 
-            if(output.length() + s.length() > charPL){
+            if(output.length() + word.length() > charPL) {
 				//create string for string format
-				left = "%" + (-charPL) + "s";
-				right = "%" + (charPL) + "s";
+				left_justify_format = "%" + (-charPL) + "s";
+				right_justify_format = "%" + (charPL) + "s";
 
-                //0 for leftjustification, 1 for right justification, 2 for both justification
-                if(leftJustify == 0){
-					tester += output.length();
+                if(justification == this.LEFT_JUSTIFY) {
+					avgCharLine += output.length();
 					postLineNum++;
-					out.println(String.format(left, output.trim()));
+					out.println(String.format(left_justify_format, output.trim()));
                 }
-                else if(leftJustify == 1) {
+                else if(justification == this.RIGHT_JUSTIFY) {
 					postLineNum++;
-					tester += output.length();
-                    //out.println(String.format("%80s",output.trim()));
-
-                out.println(String.format(right, output.trim()));
+					avgCharLine += output.length();
+					out.println(String.format(right_justify_format, output.trim()));
                 }
-                else if(leftJustify == 2)
-                {
-					tester += output.length();
-					bothJust = String.format(left, output.trim());
-					both = bothJust.toCharArray(); //charArray
-					sizeBoth = bothJust.length();	// size of line
+                else if(justification == this.FULL_JUSTIFY) {
+					avgCharLine += output.length();
+					tempString = String.format(left_justify_format, output.trim());
+					tempCharArray = tempString.toCharArray(); //charArray
+					int full_length = tempString.length();	// size of line
 					postLineNum++;
-					int p = sizeBoth;
-
-					while(both[p-1] == 32) {
+					
+					int p = full_length;
+					while(tempCharArray[p - 1] == ' ') {
 						p--;
-						count++;
+						numOfEndSpaces++;
 					}
 
-					for(int i = 1, k = 0; i <= count; k++) {
-						if(k < sizeBoth-1) //What does this line do?
-						if(both[k] == 32) {
-								bothJust = bothJust.substring(0,k) + " " + bothJust.substring(k,sizeBoth-1);
-								totalSpaces++;
-								both = bothJust.toCharArray();
-								k++; //k is already incremented in the for loop? do you want it go up by 2's?
-								i++;
+					for(int i = 1, k = 0; i <= numOfEndSpaces; k++) {
+						if(k < full_length - 1) //What does this line do?
+						
+						if(tempCharArray[k] == ' ') {
+							tempString = tempString.substring(0, k) + " " + tempString.substring(k, full_length - 1);
+							totalSpaces++;
+							tempCharArray = tempString.toCharArray();
+							k++; //k is already incremented in the for loop? do you want it go up by 2's?
+							i++;
 						}
-						if(k == sizeBoth -1)
+						
+						if(k == full_length - 1)
 							k = 0;
 					}
-					count = 0;
-					out.println(bothJust);
+					
+					numOfEndSpaces = 0;
+					out.println(tempString);
 				}
 
-                output	= "";
+                output	= ""; //Reset the output line.
 
-                if(dbl_space == true) {
-                		out.println();
-                		totalSpaces++;
+                if(double_spaced == true) {
+            		out.println();
+            		totalSpaces++;
                 }
             }
-            else{
-                output	+=	" "	+ s;
+            else {
+                output += " " + word;
             }
-            avgCharLine = tester;
         }
 
         //Print final line (doesn't do anything currently)
-        if(leftJustify == 0){
+        if(justification == 0){
             //out.print(String.format("%-80s", output.trim()));
         }
-        else if(leftJustify == 1){
+        else if(justification == 1){
             //out.print(String.format("%80s",output.trim()));
+        }
+        else {
+        	//Do the full justify stuff
         }
 
         out.close();
@@ -166,31 +157,34 @@ public class TextFileAnalyzer {
 
     //Get methods
     public int getLineNumber(){
-        //return lineNumber;
-        if(dbl_space == true)
-        	return 2*postLineNum -1;
+        if(double_spaced == true)
+        	return 2*postLineNum - 1;
         else
         	return postLineNum;
     }
+    
     public int getBlankLine() {
         return	blankLine;
     }
+    
     public int getWordNumber() {
         return	wordNumber;
     }
+    
     public double getAvgWordPerLine() {
-		if(dbl_space == true)
-        	return	wordNumber/((2*postLineNum)-1);
+		if(double_spaced == true)
+        	return	wordNumber / ((2*postLineNum) - 1);
         else
-        	return wordNumber/postLineNum;
+        	return wordNumber / postLineNum;
     }
+    
     public double getAvgCharLine() {
-
-		if(dbl_space == true)
-        return	avgCharLine/((2*postLineNum) - 1);
+		if(double_spaced == true)
+			return	avgCharLine / ((2*postLineNum) - 1);
         else
-        return avgCharLine/postLineNum;
+        	return avgCharLine / postLineNum;
     }
+    
     public int getSpacesAdded() {
 		return totalSpaces;
 	}
