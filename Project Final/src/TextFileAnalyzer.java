@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class TextFileAnalyzer {
 	//Constants
 	final int LEFT_JUSTIFY = 0, RIGHT_JUSTIFY = 1, FULL_JUSTIFY = 2;
-	
+
 	//Local Variables
     private	String	pathToTextFile, pathToOutput;
     private	int	lineNumber,postLineNum, blankLine, wordNumber, totalSpaces;
@@ -27,21 +27,22 @@ public class TextFileAnalyzer {
 
         writeOutputFile();
     }
-    
+
     // upload file and analyze it
     private	void AnalyzeFile() throws IOException {
         File file =	new	File(this.pathToTextFile);
         BufferedReader br =	new	BufferedReader(new FileReader(file));
-        String line = br.readLine();
+        String line;
         int	totalChar =	0;
-        
-        while (line != null) {
-            lineNumber++;
-			char []letters = line.toCharArray();
 
-            if(line.trim().isEmpty()) {
+
+        while((line	=	br.readLine())	!=	null)
+        {
+            lineNumber++;
+	    char []letters = line.toCharArray();
+
+            if(line.trim().isEmpty())
                 blankLine++;
-            }
 			else
 			{
 
@@ -49,33 +50,31 @@ public class TextFileAnalyzer {
 				{
 
 
-							//Checks if there's a char and a space in that order, if the last char at the last index is not a space then it counts as a word as well
-							//32 represents a space
-							if(i >= 0)
-								if(letters[i] == 32 && letters[i-1] != 32)
-									wordNumber++;
-									else if(i == line.length() - 1 && letters[i] != 32)
-											wordNumber++;
-							//totalChar++;
+					//Checks if there's a char and a space in that order, if the last char at the last index is not a space then it counts as a word as well
+				//32 represents a space
+					if(i >= 0)
+					if(letters[i] == 32 && letters[i-1] != 32)
+						wordNumber++;
+					else if(i == line.length() - 1 && letters[i] != 32)
+						wordNumber++;
 
-           		}
+                                }
 			}
         }
-        
+
         //if dbl_space is true, line number doubles in size - 1 because we insert a line
 		if(dbl_space == true) {
 			//postLineNum = (2*lineNumber) - 1;
 			lineNumber = (lineNumber*2) -1;
 		}
 
-        //avgWordPerLine	=	wordNumber	/	postLineNum;
         avgWordPerLine	=	wordNumber	/	lineNumber;
-        //avgCharLine	=	totalChar; // lineNumber;
         br.close();
     }
 
     //create output file
-    private	void writeOutputFile() throws IOException {
+    private	void writeOutputFile() throws IOException
+    {
         Scanner	sc = new Scanner(new File(pathToTextFile));
         PrintWriter	out	= new PrintWriter(pathToOutput);
 
@@ -118,7 +117,7 @@ public class TextFileAnalyzer {
 					sizeBoth = bothJust.length();	// size of line
 					postLineNum++;
 					int p = sizeBoth;
-					
+
 					while(both[p-1] == 32) {
 						p--;
 						count++;
@@ -152,7 +151,7 @@ public class TextFileAnalyzer {
             }
             avgCharLine = tester;
         }
-		
+
         //Print final line (doesn't do anything currently)
         if(leftJustify == 0){
             //out.print(String.format("%-80s", output.trim()));
@@ -186,6 +185,7 @@ public class TextFileAnalyzer {
         	return wordNumber/postLineNum;
     }
     public double getAvgCharLine() {
+
 		if(dbl_space == true)
         return	avgCharLine/((2*postLineNum) - 1);
         else
