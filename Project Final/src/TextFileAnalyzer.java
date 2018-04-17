@@ -42,7 +42,6 @@ public class TextFileAnalyzer {
             if(line.trim().isEmpty()) {
                 blankLine++;
             }
-<<<<<<< HEAD
 			else
 			{
 
@@ -59,19 +58,6 @@ public class TextFileAnalyzer {
 											wordNumber++;
 							//totalChar++;
 
-=======
-			else {
-				for(int i = 0; i < line.length(); i++) {
-					//Checks if there's a char and a space in that order, if the last char at the last index is not a space then it counts as a word as well
-					//32 represents a space (ascii value);
-					
-					if(i >= 0) //What does this line do?
-						if(letters[i] == 32 && letters[i-1] != 32)
-							wordNumber++;
-						else if(i == line.length() - 1 && letters[i] != 32)
-							wordNumber++;
-					totalChar++;
->>>>>>> b0e29653b1fff3040765b16ac256fd876e4fe104
            		}
 			}
         }
@@ -82,15 +68,9 @@ public class TextFileAnalyzer {
 			lineNumber = (lineNumber*2) -1;
 		}
 
-<<<<<<< HEAD
         //avgWordPerLine	=	wordNumber	/	postLineNum;
         avgWordPerLine	=	wordNumber	/	lineNumber;
         //avgCharLine	=	totalChar; // lineNumber;
-=======
-        //avgWordPerLine = wordNumber / postLineNum;
-        avgWordPerLine = wordNumber	/ lineNumber;
-        avgCharLine	= totalChar; // lineNumber;
->>>>>>> b0e29653b1fff3040765b16ac256fd876e4fe104
         br.close();
     }
 
@@ -118,18 +98,13 @@ public class TextFileAnalyzer {
 				right = "%" + (charPL) + "s";
 
                 //0 for leftjustification, 1 for right justification, 2 for both justification
-<<<<<<< HEAD
                 if(leftJustify == 0){
 					tester += output.length();
-=======
-                if(leftJustify == 0) {
->>>>>>> b0e29653b1fff3040765b16ac256fd876e4fe104
 					postLineNum++;
 					out.println(String.format(left, output.trim()));
                 }
                 else if(leftJustify == 1) {
 					postLineNum++;
-<<<<<<< HEAD
 					tester += output.length();
                     //out.println(String.format("%80s",output.trim()));
 
@@ -138,11 +113,6 @@ public class TextFileAnalyzer {
                 else if(leftJustify == 2)
                 {
 					tester += output.length();
-=======
-					out.println(String.format(right, output.trim()));
-                }
-                else if(leftJustify == 2) {
->>>>>>> b0e29653b1fff3040765b16ac256fd876e4fe104
 					bothJust = String.format(left, output.trim());
 					both = bothJust.toCharArray(); //charArray
 					sizeBoth = bothJust.length();	// size of line
